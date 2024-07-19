@@ -1,6 +1,17 @@
 package com.tiendavinos.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="Productos")
 public class Producto {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idProducto;
 	private String nombre;
 	private String descripcion;
@@ -8,11 +19,14 @@ public class Producto {
 	private double precio;
 	private int cantidad;
 	
+	@ManyToOne	
+	private Usuario usuario;
+	
 	public Producto() {
 		// TODO Auto-generated constructor stub
 	}
-
-	public Producto(Integer idProducto, String nombre, String descripcion, String imagen, double precio, int cantidad) {
+	public Producto(Integer idProducto, String nombre, String descripcion, String imagen, double precio, int cantidad,
+			Usuario usuario) {
 		super();
 		this.idProducto = idProducto;
 		this.nombre = nombre;
@@ -20,6 +34,7 @@ public class Producto {
 		this.imagen = imagen;
 		this.precio = precio;
 		this.cantidad = cantidad;
+		this.usuario = usuario;
 	}
 
 	public Integer getIdProducto() {
@@ -69,12 +84,25 @@ public class Producto {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
+	
+	
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	
 
 	@Override
 	public String toString() {
 		return "Producto [idProducto=" + idProducto + ", nombre=" + nombre + ", descripcion=" + descripcion
-				+ ", imagen=" + imagen + ", precio=" + precio + ", cantidad=" + cantidad + "]";
+				+ ", imagen=" + imagen + ", precio=" + precio + ", cantidad=" + cantidad + ", usuario=" + usuario + "]";
 	}
+
 	
 	
 
