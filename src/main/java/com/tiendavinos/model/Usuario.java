@@ -30,6 +30,7 @@ public class Usuario {
 	public Usuario() {
 		
 	}
+	
 	public Usuario(Integer idUsuario, String nombre, String rol, String contraseña, String tipo, String password,
 			List<Producto> productos, List<Pedido> pedidos) {
 		super();
@@ -42,6 +43,7 @@ public class Usuario {
 		this.productos = productos;
 		this.pedidos = pedidos;
 	}
+	
 	public Integer getIdUsuario() {
 		return idUsuario;
 	}
@@ -77,31 +79,23 @@ public class Usuario {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}	
-
+	}
 	public List<Producto> getProductos() {
 		return productos;
 	}
-
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
 	}
-	
-
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
-
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
-
 	@Override
 	public String toString() {
 		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", rol=" + rol + ", contraseña=" + contraseña
-				+ ", tipo=" + tipo + ", password=" + password + "]";
+				+ ", tipo=" + tipo + ", password=" + password + ", productos=" + productos + ", pedidos=" + pedidos
+				+ "]";
 	}
-	
-	
-	
 }
