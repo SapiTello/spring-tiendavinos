@@ -1,5 +1,7 @@
 package com.tiendavinos.controller;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.tiendavinos.model.Producto;
 import com.tiendavinos.service.ProductoService;
 
 @Controller
@@ -29,8 +32,14 @@ public class HomeController {
 	}
 	
 	@GetMapping("productohome/{idProducto}")
-	public String productoHome(@PathVariable Integer idProducto) {
+	public String productoHome(@PathVariable Integer idProducto, Model model) {
 		log.info("Id producto enviado como parametro {}",idProducto);
+		Producto producto = new Producto();
+		Optional<Producto> productoOptional = productoService.get(idProducto);
+		producto = productoOptional.get();
+		
+		model.addAttribute("producto", producto);
+		
 		return "usuario/productohome";
 	}
 
