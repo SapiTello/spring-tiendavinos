@@ -45,11 +45,12 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="col-lg-6">
-						<a href="#"> <img class="img-fluid rounded" th:src="@{/images/{img} (img=${producto.imagen})}" alt="">
+						<a href="#"> <img class="img-fluid rounded" th:src="@{/images/{img} (img=${producto.imagen})}"
+								alt="">
 						</a>
 					</div>
 					<div class="col-lg-6">
-						<form action="carrito.html" method="POST">
+						<form th:action="@{/cart}" method="POST">
 							<h2 class="card-title" th:text="${producto.nombre}"></h2>
 
 							<ul class="list-group">
@@ -81,13 +82,13 @@
 	<!-- /.container -->
 
 	<!-- Footer -->
-		<div th:include="usuario/template_usuario.html::footer">
-			
-		</div>
+	<div th:include="usuario/template_usuario.html::footer">
 
-		<!-- Bootstrap core JavaScript -->
-		<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-		<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	</div>
+
+	<!-- Bootstrap core JavaScript -->
+	<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
 </body>
 
