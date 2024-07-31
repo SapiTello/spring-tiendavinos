@@ -95,7 +95,6 @@ public class Usuario {
 	@Override
 	public String toString() {
 		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", rol=" + rol + ", contraseña=" + contraseña
-				+ ", tipo=" + tipo + ", password=" + password + ", productos=" + productos + ", pedidos=" + pedidos
-				+ "]";
+                + ", tipo=" + tipo + ", password=" + password + "]";
 	}
 }

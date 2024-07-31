@@ -22,9 +22,9 @@ public class ProductoServiceImplementacion implements ProductoService{
 	}
 
 	@Override
-	public Optional<Producto> get(Integer id) {
+	public Optional<Producto> get(Integer idProducto) {
 		// TODO Auto-generated method stub
-		return productoRepository.findById(id);
+		return productoRepository.findById(idProducto);
 	}
 
 	@Override
@@ -34,8 +34,8 @@ public class ProductoServiceImplementacion implements ProductoService{
 	}
 
 	@Override
-	public void delete(Integer id) {
-		productoRepository.deleteById(id);
+	public void delete(Integer idProducto) {
+		productoRepository.deleteById(idProducto);
 		
 	}
 
