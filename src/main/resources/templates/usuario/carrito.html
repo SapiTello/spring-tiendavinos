@@ -8,7 +8,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>Spring eCommerce</title>
+	<title>Carrito de Compras</title>
 
 
 	<!-- Bootstrap core CSS -->
@@ -32,7 +32,7 @@
 
 		<!-- Page Heading/Breadcrumbs -->
 		<h1 class="mt-4 mb-3">
-			Spring eCommerce <small>Carrito</small>
+			Tienda de Vinos <small>Carrito</small>
 		</h1>
 
 		<ol class="breadcrumb">
@@ -56,11 +56,11 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>Nombre</td>
-									<td>Precio</td>
-									<td>Cantidad</td>
-									<td>Total</td>
+								<tr th:each="dpedido:${cart}">
+									<td th:text="${dpedido.nombre}"></td>
+									<td th:text="${dpedido.precio}"></td>
+									<td th:text="${dpedido.cantidad}"></td>
+									<td th:text="${dpedido.total}"></td>
 									<td><a href="#" class="btn btn-danger">Quitar</a></td>
 								</tr>
 							</tbody>
@@ -72,7 +72,7 @@
 
 						<ul class="list-group">
 							<li class="list-group-item">
-								<h5>Total: $ 10</h5>
+								<h5 th:text=" 'S/ ' + ${pedido.total}"></h5>
 							</li>
 							<a href="resumenorden.html" class="btn btn-dark">Ver Orden</a>
 						</ul>
