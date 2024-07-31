@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class UploadFileService {
 	private String folder="images//";
 	
-	public String saveImag(MultipartFile file) throws IOException {
+	public String saveImage(MultipartFile file) throws IOException {
 		if(!file.isEmpty()) {
 			byte [] bytes = file.getBytes();
 			Path path = Paths.get(folder+file.getOriginalFilename());
