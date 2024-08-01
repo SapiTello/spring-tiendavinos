@@ -121,5 +121,11 @@ public class HomeController {
 		model.addAttribute("pedido", pedido);
 		return "/usuario/carrito";
 	}
+	
+	@GetMapping("/order")
+	public String pedido() {
+		
+		return "usuario/resumenorden";
+	}
 
 }
