@@ -61,7 +61,7 @@
 									<td th:text="${dpedido.precio}"></td>
 									<td th:text="${dpedido.cantidad}"></td>
 									<td th:text="${dpedido.total}"></td>
-									<td><a href="#" class="btn btn-danger">Quitar</a></td>
+									<td><a th:href="@{/delete/cart/{id} (id=${dpedido.producto.idProducto})}" class="btn btn-danger">Quitar</a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -86,7 +86,7 @@
 		<!-- Footer -->
 		<div th:include="usuario/template_usuario.html::footer">
 
-		</div>>
+		</div>
 
 		<!-- Bootstrap core JavaScript -->
 		<script th:src="@{/vendor/jquery/jquery.min.js}"></script>

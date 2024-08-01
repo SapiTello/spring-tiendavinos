@@ -23,65 +23,89 @@ import com.tiendavinos.service.ProductoService;
 @Controller
 @RequestMapping("/")
 public class HomeController {
-	
-	private final Logger log= LoggerFactory.getLogger(HomeController.class);
-	
+
+	private final Logger log = LoggerFactory.getLogger(HomeController.class);
+
 	@Autowired
-	private  ProductoService productoService;
-	
-	//para almacenar los detalles de la orden
+	private ProductoService productoService;
+
+	// para almacenar los detalles de la orden
 	List<DetallePedido> detalles = new ArrayList<DetallePedido>();
-	
-	//datos del pedido
+
+	// datos del pedido
 	Pedido pedido = new Pedido();
-	
+
 	@GetMapping("")
 	public String home(Model model) {
-		
-		model.addAttribute("productos",productoService.findAll());
-		
+
+		model.addAttribute("productos", productoService.findAll());
+
 		return "usuario/home";
 	}
-	
+
 	@GetMapping("productohome/{idProducto}")
 	public String productoHome(@PathVariable Integer idProducto, Model model) {
-		log.info("Id producto enviado como parametro {}",idProducto);
+		log.info("Id producto enviado como parametro {}", idProducto);
 		Producto producto = new Producto();
 		Optional<Producto> productoOptional = productoService.get(idProducto);
 		producto = productoOptional.get();
-		
+
 		model.addAttribute("producto", producto);
-		
+
 		return "usuario/productohome";
 	}
-	
+
 	@PostMapping("/cart")
 	public String addCart(@RequestParam Integer idProducto, @RequestParam Integer cantidad, Model model) {
 		DetallePedido detallePedido = new DetallePedido();
 		Producto producto = new Producto();
-		double sumaTotal=0;
-		
+		double sumaTotal = 0;
+
 		Optional<Producto> optionalProducto = productoService.get(idProducto);
 		log.info("Producto añadido: {}", optionalProducto.get());
 		log.info("Cantidad: {}", cantidad);
-		producto=optionalProducto.get();
-		
+		producto = optionalProducto.get();
+
 		detallePedido.setCantidad(cantidad);
 		detallePedido.setPrecio(producto.getPrecio());
 		detallePedido.setNombre(producto.getNombre());
-		detallePedido.setTotal(producto.getPrecio()*cantidad);
+		detallePedido.setTotal(producto.getPrecio() * cantidad);
 		detallePedido.setProducto(producto);
-		
+
 		detalles.add(detallePedido);
-		
-		sumaTotal = detalles.stream().mapToDouble(dt->dt.getTotal()).sum();
-		
+
+		sumaTotal = detalles.stream().mapToDouble(dt -> dt.getTotal()).sum();
+
 		pedido.setTotal(sumaTotal);
-		model.addAttribute("cart",detalles);
-		model.addAttribute("pedido",pedido);
-		
-		
-		return "/usuario/carrito";
+		model.addAttribute("cart", detalles);
+		model.addAttribute("pedido", pedido);
+
+		return "usuario/carrito";
 	}
-	
+
+	// quitar un producto del carrito
+
+	@GetMapping("/delete/cart/{idProducto}")
+	public String deleteProductoCart(@PathVariable Integer idProducto, Model model) {
+		List<DetallePedido> pedidoNuevo = new ArrayList<DetallePedido>();
+
+		for (DetallePedido detallePedido : detalles) {
+			if (detallePedido.getProducto().getIdProducto() != idProducto) {
+				pedidoNuevo.add(detallePedido);
+			}
+		}
+
+		// poner la nueva lista con los productos restantes
+		detalles = pedidoNuevo;
+
+		double sumaTotal = 0;
+		sumaTotal = detalles.stream().mapToDouble(dt -> dt.getTotal()).sum();
+
+		pedido.setTotal(sumaTotal);
+		model.addAttribute("cart", detalles);
+		model.addAttribute("pedido", pedido);
+
+		return "usuario/carrito";
+	}
+
 }
