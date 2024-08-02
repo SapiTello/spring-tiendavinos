@@ -33,7 +33,7 @@
 
 		<!-- Page Heading/Breadcrumbs -->
 		<h1 class="mt-4 mb-3">
-			Viventori / Marengo chipi <small>Resumen de la orden</small>
+			Viventori <small>Resumen de la orden</small>
 		</h1>
 
 		<ol class="breadcrumb">
@@ -50,9 +50,10 @@
 							<h5 class="card-title">
 								DATOS ORDEN
 							</h5>
-							<h6>Nombre: </h6>
-							<h6>Correo: </h6>
-							<h6>Dirección</h6>
+							<h6 th:text="'Nombre: '+${usuario.nombre}"> </h6>
+							<h6 th:text="'Correo: '+${usuario.email}"></h6>
+							<h6 th:text="'Dirección: '+${usuario.dirección}"></h6>
+							<br>
 
 							<h5 class="card-title">
 								PRODUCTOS
@@ -68,12 +69,11 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>Nombre</td>
-											<td>Precio</td>
-											<td>Cantidad</td>
-											<td>Total</td>
-
+										<tr th:each="dpedido:${cart}">
+											<td th:text="${dpedido.nombre}"></td>
+											<td th:text="${dpedido.precio}"></td>
+											<td th:text="${dpedido.cantidad}"></td>
+											<td th:text="${dpedido.total}"></td>
 										</tr>
 									</tbody>
 								</table>
@@ -87,8 +87,7 @@
 						<h2 class="card-title">Resumen Orden</h2>
 
 						<ul class="list-group">
-							<li class="list-group-item">
-								<h5> Total:</h5>
+							<li class="list-group-item"><h5 th:text=" 'Total:: '+ ${pedido.total}"> </h5>
 							</li>
 							<a href="#" class="btn btn-dark">Generar</a>
 						</ul>

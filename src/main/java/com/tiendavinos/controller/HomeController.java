@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.tiendavinos.model.DetallePedido;
 import com.tiendavinos.model.Pedido;
 import com.tiendavinos.model.Producto;
+import com.tiendavinos.model.Usuario;
+import com.tiendavinos.service.IUsuarioService;
 import com.tiendavinos.service.ProductoService;
 
 @Controller
@@ -28,6 +30,10 @@ public class HomeController {
 
 	@Autowired
 	private ProductoService productoService;
+	
+	
+	@Autowired
+	private IUsuarioService usuarioService;
 
 	// para almacenar los detalles de la orden
 	List<DetallePedido> detalles = new ArrayList<DetallePedido>();
@@ -117,13 +123,20 @@ public class HomeController {
 	
 	@GetMapping("/getCart")
 	public String getCart(Model model) {
+		
 		model.addAttribute("cart", detalles);
 		model.addAttribute("pedido", pedido);
 		return "/usuario/carrito";
 	}
 	
 	@GetMapping("/order")
-	public String pedido() {
+	public String pedido(Model model) {
+		
+		Usuario usuario = usuarioService.findById(1).get();
+		
+		model.addAttribute("cart", detalles);
+		model.addAttribute("pedido", pedido);
+		model.addAttribute("usuario", usuario);
 		
 		return "usuario/resumenorden";
 	}
