@@ -1,6 +1,8 @@
 package com.tiendavinos.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +21,8 @@ import com.tiendavinos.model.DetallePedido;
 import com.tiendavinos.model.Pedido;
 import com.tiendavinos.model.Producto;
 import com.tiendavinos.model.Usuario;
+import com.tiendavinos.service.IDetallePedidoService;
+import com.tiendavinos.service.IPedidoService;
 import com.tiendavinos.service.IUsuarioService;
 import com.tiendavinos.service.ProductoService;
 
@@ -34,6 +38,13 @@ public class HomeController {
 	
 	@Autowired
 	private IUsuarioService usuarioService;
+	
+	@Autowired
+	private IPedidoService pedidoService;
+	
+	@Autowired
+	private IDetallePedidoService detallePedidoService;
+	
 
 	// para almacenar los detalles de la orden
 	List<DetallePedido> detalles = new ArrayList<DetallePedido>();
@@ -140,5 +151,34 @@ public class HomeController {
 		
 		return "usuario/resumenorden";
 	}
+	
+	//Guardar el pedido
+	@GetMapping("/savePedido")
+	public String savePedido() {
+		Date fechaCreacion = new Date();
+		pedido.setFecha(fechaCreacion);
+		pedido.setNumero(pedidoService.generarNumeroPedido());
+		
+		//usuario 
+		Usuario usuario = usuarioService.findById(1).get();
+		
+		pedido.setUsuario(usuario);
+		pedidoService.save(pedido);
+		
+		//guardar detalles del pedido
+		for (DetallePedido dt:detalles) {
+			dt.setPedido(pedido);
+			detallePedidoService.save(dt);
+			
+		}
+		
+		//Limpiar lista y orden
+		pedido = new Pedido();
+		detalles.clear();		
+		
+		return "redirect:/";
+	}
+	
+	
 
 }
