@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tiendavinos.model.Pedido;
+import com.tiendavinos.model.Usuario;
 import com.tiendavinos.repository.IPedidoRepository;
 
 @Service
@@ -59,6 +60,11 @@ public class PedidoServiceImpl implements IPedidoService {
 		}
 		
 		return numeroConcatenado;
+	}
+
+	@Override
+	public List<Pedido> findByUsuario(Usuario usuario) {
+		return pedidoRepository.findByUsuario(usuario);
 	}
 
 }

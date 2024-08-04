@@ -1,5 +1,6 @@
 package com.tiendavinos.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.tiendavinos.model.Pedido;
 import com.tiendavinos.model.Usuario;
+import com.tiendavinos.service.IPedidoService;
 import com.tiendavinos.service.IUsuarioService;
 
 import jakarta.servlet.http.HttpSession;
@@ -26,6 +29,10 @@ public class UsuarioController {
 	
 	@Autowired
 	private IUsuarioService usuarioService;
+	
+	@Autowired
+	private IPedidoService pedidoService;
+	
 	
 	// /usuario/registro
 	@GetMapping("/registro")
@@ -71,6 +78,11 @@ public class UsuarioController {
 	@GetMapping("/compras")
 	public String obtenerCompras(Model model, HttpSession session) {
 		model.addAttribute("sesion", session.getAttribute("idUsuario"));
+		Usuario usuario = usuarioService.findById(Integer.parseInt(session.getAttribute("idUsuario").toString())).get();
+		List<Pedido> pedidos= pedidoService.findByUsuario(usuario);
+		
+		model.addAttribute("pedidos", pedidos);
+		
 		return "usuario/compras";
 	}
 	
