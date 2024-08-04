@@ -6,6 +6,7 @@ import com.tiendavinos.model.Usuario;
 
 public interface IUsuarioService {
 	Optional<Usuario> findById(Integer idUsuario);
+	Usuario save(Usuario usuario);
 	
 
 }
