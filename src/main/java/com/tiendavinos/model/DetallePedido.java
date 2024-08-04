@@ -17,7 +17,7 @@ public class DetallePedido {
 	private double precio;
 	private double total;
 	
-	@OneToOne
+	@ManyToOne
 	private Pedido pedido;
 	
 	@ManyToOne

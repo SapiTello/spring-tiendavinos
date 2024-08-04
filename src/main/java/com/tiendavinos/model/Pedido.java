@@ -1,12 +1,14 @@
 package com.tiendavinos.model;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -25,8 +27,8 @@ public class Pedido {
 	@ManyToOne
 	private Usuario usuario;
 	
-	@OneToOne(mappedBy="pedido")
-	private DetallePedido detallePedido;
+	@OneToMany(mappedBy="pedido")
+	private List<DetallePedido> detallePedido;
 	
 	public Pedido() {
 		// TODO Auto-generated constructor stub
@@ -37,7 +39,7 @@ public class Pedido {
 
 
 	public Pedido(Integer idPedido, String numero, Date fecha, double total, Usuario usuario,
-			DetallePedido detallePedido) {
+			List<DetallePedido> detallePedido) {
 		super();
 		this.idPedido = idPedido;
 		this.numero = numero;
@@ -51,49 +53,91 @@ public class Pedido {
 
 
 
+	
+
+
+
+
+
 	public Integer getIdPedido() {
 		return idPedido;
 	}
+
+
+
+
 
 	public void setIdPedido(Integer idPedido) {
 		this.idPedido = idPedido;
 	}
 
+
+
+
+
 	public Date getFecha() {
 		return fecha;
 	}
+
+
+
+
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 
+
+
+
+
 	public double getTotal() {
 		return total;
 	}
 
+
+
+
+
 	public void setTotal(double total) {
 		this.total = total;
 	}
-	
+
+
+
+
 
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
+
+
+
+
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
 
-	public DetallePedido getDetallePedido() {
+
+
+
+
+	public List<DetallePedido> getDetallePedido() {
 		return detallePedido;
 	}
 
-	public void setDetallePedido(DetallePedido detallePedido) {
+
+
+
+
+	public void setDetallePedido(List<DetallePedido> detallePedido) {
 		this.detallePedido = detallePedido;
 	}
-	
-	
+
+
+
+
 
 	public String getNumero() {
 		return numero;

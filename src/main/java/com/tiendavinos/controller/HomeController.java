@@ -27,6 +27,9 @@ import com.tiendavinos.service.IDetallePedidoService;
 import com.tiendavinos.service.IPedidoService;
 import com.tiendavinos.service.IUsuarioService;
 import com.tiendavinos.service.ProductoService;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -57,7 +60,9 @@ public class HomeController {
 	Pedido pedido = new Pedido();
 
 	@GetMapping("")
-	public String home(Model model) {
+	public String home(Model model, HttpSession session) {
+		
+		log.info("Sesion del usuario: {}",session.getAttribute("idUsuario"));
 
 		model.addAttribute("productos", productoService.findAll());
 
@@ -145,9 +150,9 @@ public class HomeController {
 	}
 	
 	@GetMapping("/order")
-	public String pedido(Model model) {
+	public String pedido(Model model, HttpSession session) {
 		
-		Usuario usuario = usuarioService.findById(1).get();
+		Usuario usuario = usuarioService.findById(Integer.parseInt(session.getAttribute("idUsuario").toString())).get();
 		
 		model.addAttribute("cart", detalles);
 		model.addAttribute("pedido", pedido);
@@ -158,13 +163,13 @@ public class HomeController {
 	
 	//Guardar el pedido
 	@GetMapping("/savePedido")
-	public String savePedido() {
+	public String savePedido(HttpSession session) {
 		Date fechaCreacion = new Date();
 		pedido.setFecha(fechaCreacion);
 		pedido.setNumero(pedidoService.generarNumeroPedido());
 		
 		//usuario 
-		Usuario usuario = usuarioService.findById(1).get();
+		Usuario usuario = usuarioService.findById(Integer.parseInt(session.getAttribute("idUsuario").toString())).get();
 		
 		pedido.setUsuario(usuario);
 		pedidoService.save(pedido);
