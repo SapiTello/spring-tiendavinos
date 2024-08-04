@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tiendavinos.model.Producto;
-import com.tiendavinos.repository.ProductoRepository;
+import com.tiendavinos.repository.IProductoRepository;
 
 @Service
 public class ProductoServiceImplementacion implements ProductoService{
 	
 	@Autowired
-	private ProductoRepository productoRepository;
+	private IProductoRepository productoRepository;
 
 	@Override
 	public Producto save(Producto producto) {
