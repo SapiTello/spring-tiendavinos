@@ -16,6 +16,8 @@ public class Pedido {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idPedido;
+	private String numero;
+	
 	private Date fecha;
 	
 	private double total;
@@ -31,14 +33,22 @@ public class Pedido {
 	}
 
 	
-	public Pedido(Integer idPedido, Date fecha, double total, Usuario usuario, DetallePedido detallePedido) {
+
+
+
+	public Pedido(Integer idPedido, String numero, Date fecha, double total, Usuario usuario,
+			DetallePedido detallePedido) {
 		super();
 		this.idPedido = idPedido;
+		this.numero = numero;
 		this.fecha = fecha;
 		this.total = total;
 		this.usuario = usuario;
 		this.detallePedido = detallePedido;
 	}
+
+
+
 
 
 	public Integer getIdPedido() {
@@ -82,11 +92,31 @@ public class Pedido {
 	public void setDetallePedido(DetallePedido detallePedido) {
 		this.detallePedido = detallePedido;
 	}
+	
+	
+
+	public String getNumero() {
+		return numero;
+	}
+
+
+
+
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+
+
+
 
 	@Override
 	public String toString() {
 		return "Pedido [idPedido=" + idPedido + ", fecha=" + fecha + ", total=" + total + "]";
 	}
+
+
 	
 	
 	
