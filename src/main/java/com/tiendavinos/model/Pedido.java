@@ -33,11 +33,6 @@ public class Pedido {
 	public Pedido() {
 		// TODO Auto-generated constructor stub
 	}
-
-	
-
-
-
 	public Pedido(Integer idPedido, String numero, Date fecha, double total, Usuario usuario,
 			List<DetallePedido> detallePedido) {
 		super();
