@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tiendavinos.model.Producto;
+import com.tiendavinos.service.IPedidoService;
 import com.tiendavinos.service.IUsuarioService;
 import com.tiendavinos.service.ProductoService;
 
@@ -21,6 +22,9 @@ public class AdministradorController {
 	
 	@Autowired
 	private IUsuarioService usuarioService;
+	
+	@Autowired
+	private IPedidoService pedidoService;
 	
 	@GetMapping("")
 	public String home(Model model) {
@@ -36,5 +40,11 @@ public class AdministradorController {
 	public String usuarios(Model model) {
 		model.addAttribute("usuarios", usuarioService.findAllList());
 		return "administrador/usuarios";
+	}
+	
+	@GetMapping("/pedidos")
+	public String pedidos(Model model) {
+		model.addAttribute("pedidos",pedidoService.findAll());
+		return "administrador/pedidos";
 	}
 }
