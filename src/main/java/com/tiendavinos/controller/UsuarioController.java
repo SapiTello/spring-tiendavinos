@@ -55,26 +55,31 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/acceder")
-	public String acceder(Usuario usuario, HttpSession session) {
-		logger.info("Accesos: {}", usuario);
-		
-		Optional<Usuario> user=usuarioService.findByEmail(usuario.getEmail());
-		//logger.info("Usuario de db: {}",user.get());
-		
-		if (user.isPresent()) {
-			session.setAttribute("idUsuario", user.get().getIdUsuario());
-			if (user.get().getTipo().equals("ADMIN")) {
-				return "redirect:/administrador";
-			}else {
-				return "redirect:/";
-			}
-			
-		}else {
-			logger.info("Usuario no existe");
-		}
-		
-		return "redirect:/";
+	public String acceder(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session) {
+	    logger.info("Intento de acceso con email: {}", email);
+	    
+	    Optional<Usuario> userOpt = usuarioService.findByEmail(email);
+	    
+	    if (userOpt.isPresent()) {
+	        Usuario user = userOpt.get();
+	        // Verifica si la contraseña proporcionada coincide con la almacenada
+	        if (user.getContraseña().equals(password)) { // Asumiendo que tienes un método getPassword()
+	            session.setAttribute("idUsuario", user.getIdUsuario());
+	            if (user.getTipo().equals("ADMIN")) {
+	                return "redirect:/administrador";
+	            } else {
+	                return "redirect:/";
+	            }
+	        } else {
+	            logger.info("Contraseña incorrecta");
+	        }
+	    } else {
+	        logger.info("Usuario no existe");
+	    }
+	    
+	    return "redirect:/login?error"; // Redirige a la página de login con un parámetro de error
 	}
+
 	
 	@GetMapping("/compras")
 	public String obtenerCompras(Model model, HttpSession session) {

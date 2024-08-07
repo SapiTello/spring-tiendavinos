@@ -44,6 +44,8 @@
         <th scope="col">Nombre</th>
         <th scope="col">Email</th>
         <th scope="col">Dirección</th>
+		<th scope="col">Acción</th>
+		<th scope="col">Acción</th>
       </tr>
     </thead>
     <tbody>
@@ -51,6 +53,8 @@
         <td th:text="${usuario.nombre}"></td>
         <td th:text="${usuario.email}"></td>
         <td th:text="${usuario.dirección}"></td>
+		<td><a class="btn btn-warning" >Editar</a> </td>
+		<td><a class="btn btn-danger" >Eliminar</a> </td>
       </tr>       
     </tbody>
   </table>
