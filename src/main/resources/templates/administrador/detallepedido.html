@@ -27,14 +27,16 @@
 	<!-- Page Content -->
 	<div class="container">
 
+
 		<!-- Page Heading/Breadcrumbs -->
 		<h1 class="mt-4 mb-3">
-			<small>Compras</small>
+			 <small>Detalle Pedido</small>
 		</h1>
 
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a th:href="@{/}">Inicio</a></li>
-			<li class="breadcrumb-item active">Pedidos</li>
+			<li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+			<li class="breadcrumb-item"><a href="compras.html">Compras</a></li>
+			<li class="breadcrumb-item active">Detalle de Compra</li>
 		</ol>
 
 		<!-- Blog Post -->
@@ -45,18 +47,18 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th scope="col">No. de Orden</th>
-									<th scope="col">Fecha</th>
-									<th scope="col">Valor</th>
-									<th scope="col">Acción</th>
+									<th scope="col">Cantidad</th>
+									<th scope="col">Producto</th>
+									<th scope="col">Precio</th>
+									<th scope="col">Total</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="pedido:${pedidos}">
-									<td th:text="${pedido.numero}"></td>
-									<td th:text="${pedido.fecha}"></td>
-									<td th:text="${pedido.total}"></td>
-									<td><a th:href="@{/administrador/detalle/{id} (id=${pedido.idPedido})}" class="btn btn-success">Ver Detalle</a></td>
+								<tr th:each="detalle:${detalles}">
+									<td th:text="${detalle.cantidad}"></td>
+									<td th:text="${detalle.nombre}"></td>
+									<td th:text="${detalle.precio}"></td>
+									<td th:text="${detalle.total}"></td>
 								</tr>
 							</tbody>
 						</table>

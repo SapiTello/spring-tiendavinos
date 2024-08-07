@@ -2,12 +2,16 @@ package com.tiendavinos.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.tiendavinos.model.Pedido;
 import com.tiendavinos.model.Producto;
 import com.tiendavinos.service.IPedidoService;
 import com.tiendavinos.service.IUsuarioService;
@@ -25,6 +29,8 @@ public class AdministradorController {
 	
 	@Autowired
 	private IPedidoService pedidoService;
+	
+	private Logger logg = LoggerFactory.getLogger(AdministradorController.class);
 	
 	@GetMapping("")
 	public String home(Model model) {
@@ -46,5 +52,15 @@ public class AdministradorController {
 	public String pedidos(Model model) {
 		model.addAttribute("pedidos",pedidoService.findAll());
 		return "administrador/pedidos";
+	}
+	
+	@GetMapping("/detalle/{idPedido}")
+	public String detalle(Model model, @PathVariable Integer idPedido) {
+		logg.info("id del pedido {}", idPedido);
+		Pedido pedido = pedidoService.findById(idPedido).get();
+		
+		model.addAttribute("detalles", pedido.getDetallePedido());
+		
+		return "administrador/detallepedido";
 	}
 }
