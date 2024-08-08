@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tiendavinos.model.Pedido;
 import com.tiendavinos.model.Producto;
+import com.tiendavinos.model.Usuario;
 import com.tiendavinos.service.IPedidoService;
 import com.tiendavinos.service.IUsuarioService;
 import com.tiendavinos.service.ProductoService;
+import com.tiendavinos.service.ProveedorService;
 
 @Controller
 @RequestMapping("/administrador")
@@ -25,10 +27,14 @@ public class AdministradorController {
 	private ProductoService productoService;
 	
 	@Autowired
+	private ProveedorService proveedorService;
+	
+	@Autowired
 	private IUsuarioService usuarioService;
 	
 	@Autowired
 	private IPedidoService pedidoService;
+
 	
 	private Logger logg = LoggerFactory.getLogger(AdministradorController.class);
 	
@@ -54,13 +60,25 @@ public class AdministradorController {
 		return "administrador/pedidos";
 	}
 	
+	@GetMapping("/proveedores")
+	public String proveedores(Model model) {
+		model.addAttribute("proveedores",proveedorService.findAll());
+		return "administrador/proveedores";
+	}
+	
 	@GetMapping("/detalle/{idPedido}")
 	public String detalle(Model model, @PathVariable Integer idPedido) {
 		logg.info("id del pedido {}", idPedido);
 		Pedido pedido = pedidoService.findById(idPedido).get();
 		
-		model.addAttribute("detalles", pedido.getDetallePedido());
+		model.addAttribute("detalles", pedido.getDetallePedido());		
 		
 		return "administrador/detallepedido";
 	}
+	
+	public String proveedor(Model model) {
+		return "";
+	}
+	
+	
 }

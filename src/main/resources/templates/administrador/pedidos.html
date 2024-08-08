@@ -47,14 +47,16 @@
 								<tr>
 									<th scope="col">No. de Orden</th>
 									<th scope="col">Fecha</th>
+									<th scope="col">Usuario</th>
 									<th scope="col">Valor</th>
 									<th scope="col">Acción</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="pedido:${pedidos}">
+								<tr th:each="pedido: ${pedidos}">
 									<td th:text="${pedido.numero}"></td>
 									<td th:text="${pedido.fecha}"></td>
+									<td th:text="${pedido.usuario.nombre}"></td>
 									<td th:text="${pedido.total}"></td>
 									<td><a th:href="@{/administrador/detalle/{id} (id=${pedido.idPedido})}" class="btn btn-success">Ver Detalle</a></td>
 								</tr>
