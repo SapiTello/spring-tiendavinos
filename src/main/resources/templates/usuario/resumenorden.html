@@ -33,7 +33,7 @@
 
 		<!-- Page Heading/Breadcrumbs -->
 		<h1 class="mt-4 mb-3">
-			Viventori <small>Resumen de la orden</small>
+			Resumen de la orden
 		</h1>
 
 		<ol class="breadcrumb">
@@ -142,7 +142,7 @@
 								<input type="number" class="form-control" id="montoPago" name="montoPago"
 									th:value="${pedido.total}" readonly>
 							</div>
-							<button type="submit" class="btn btn-primary">Pagar</button>
+							<a th:href="@{/savePedido}" class="btn btn-dark">Generar</a>
 						</form>
 					</div>
 				</div>

@@ -3,62 +3,102 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-  <title>Tienda Vinos</title>
+	<title>Tienda Vinos</title>
 
+	<!-- Bootstrap core CSS -->
+	<link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 
-  <!-- Bootstrap core CSS -->
-  <link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
-  <link th:href="@{css/heroic-features.css}" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	<link th:href="@{css/heroic-features.css}" rel="stylesheet">
 
 </head>
 
 <body>
 
-<div th:include="administrador/template_Admin.html::header"></div>  
+	<div th:include="administrador/template_Admin.html::header"></div>
 
-    <!-- Page Content -->
-    <div class="container">
+	<!-- Page Content -->
+	<div class="container">
 
-      <!-- Jumbotron Header -->
-      <header class="jumbotron my-4" >
-        <h1 class="display-3">Bienvenido a nuestra tienda virtual</h1>
-        <p class="lead">Tu tienda de productos en Línea</p>
-      </header>
+		<!-- Jumbotron Header -->
+		<header class="jumbotron my-4">
+			<h1 class="display-3">Bienvenido a nuestra tienda virtual</h1>
+			<p class="lead">Tu tienda de productos en Línea</p>
+		</header>
 
-      <!-- Page Features -->
-      <div class="row text-center">
+		<!-- Page Features -->
+		<div class="row text-center">
 
-        <div class="col-lg-3 col-md-6 mb-4" th:each="producto:${productos}">
-          <div class="card h-100">
-            <img class="card-img-top" th:src="@{/images/{img}(img=${producto.imagen})}" alt="">
-            <div class="card-body">
-              <p class="card-text" th:text="${producto.nombre}"></p>
-            </div>
-            <div class="card-footer">
-              <a href="productohome.html" class="btn btn-success">Ver producto</a>
-            </div>
-          </div>
-        </div>       
+			<div class="col-lg-3 col-md-6 mb-4" th:each="producto:${productos}">
+				<div class="card h-100">
+					<img class="card-img-top" th:src="@{/images/{img}(img=${producto.imagen})}" alt="">
+					<div class="card-body">
+						<p class="card-text" th:text="${producto.nombre}"></p>
+					</div>
+					<div class="card-footer">
+						<a th:href="@{/productohome/{id} (id=${producto.idProducto}) }" class="btn btn-success">Ver producto</a>
+					</div>
+				</div>
+			</div>
 
-      </div>
-      <!-- /.row -->
+		</div>
+		<!-- /.row -->
 
-    </div>
-    <!-- /.container -->
+		<!-- Reseñas de Usuarios -->
+		<div class="row my-4">
+			<div class="col-lg-12">
+				<h2>Reseñas de Usuarios</h2>
 
-    <div th:include="administrador/template_Admin.html::footer"></div>
+				<!-- Formulario para ingresar una nueva reseña -->
+				<div class="card mt-3">
+					<div class="card-body">
+						<form th:action="@{/guardarResena}" method="post">
+							<div class="form-group">
+								<label for="nombre">Nombre:</label>
+								<input type="text" class="form-control" id="nombre" name="nombre" required>
+							</div>
+							<div class="form-group">
+								<label for="comentario">Tu reseña:</label>
+								<textarea class="form-control" id="comentario" name="comentario" rows="3" required></textarea>
+							</div>
+							<button type="submit" class="btn btn-primary">Enviar Reseña</button>
+						</form>
+					</div>
+				</div>
 
-    <!-- Bootstrap core JavaScript -->
-    <script th:src="@{vendor/jquery/jquery.min.js}"></script>
-    <script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+				<!-- Mostrar reseñas existentes -->
+				<div class="row my-4">
+					<div class="col-lg-12">
+						<h2>Reseñas Recientes</h2>
+						<ul>
+							<li th:each="resena : ${resenas}">
+								<p th:text="${resena.comentario}"></p>
+								<p th:text="${#dates.format(resena.fecha, 'dd/MM/yyyy HH:mm')}"></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- /.Reseñas -->
 
-  </body>
+			</div>
+		</div>
 
-  </html>
+		<!-- /.container -->
+
+		<div th:include="administrador/template_Admin.html::footer"></div>
+
+		<!-- Bootstrap core JavaScript -->
+		<script th:src="@{vendor/jquery/jquery.min.js}"></script>
+		<script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+	</div>
+	<!-- /.container -->
+
+</body>
+
+</html>

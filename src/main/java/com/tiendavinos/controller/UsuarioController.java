@@ -55,7 +55,7 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/acceder")
-	public String acceder(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session) {
+	public String acceder(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session, Model model) {
 	    logger.info("Intento de acceso con email: {}", email);
 	    
 	    Optional<Usuario> userOpt = usuarioService.findByEmail(email);
@@ -72,12 +72,14 @@ public class UsuarioController {
 	            }
 	        } else {
 	            logger.info("Contraseña incorrecta");
+	            model.addAttribute("error","Contraseña Incorrecta");
 	        }
 	    } else {
 	        logger.info("Usuario no existe");
+	        model.addAttribute("error","usuario no creado");
 	    }
 	    
-	    return "redirect:/login?error"; // Redirige a la página de login con un parámetro de error
+	    return "usuario/login"; // Redirige a la página de login con un parámetro de error
 	}
 
 	

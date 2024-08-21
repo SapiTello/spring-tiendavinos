@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.tiendavinos.model.DetallePedido;
 import com.tiendavinos.model.Pedido;
 import com.tiendavinos.model.Producto;
+import com.tiendavinos.model.Resena;
 import com.tiendavinos.model.Usuario;
+import com.tiendavinos.repository.IResenaRepository;
 import com.tiendavinos.service.IDetallePedidoService;
 import com.tiendavinos.service.IPedidoService;
 import com.tiendavinos.service.IUsuarioService;
@@ -52,6 +55,8 @@ public class HomeController {
 	@Autowired
 	private IDetallePedidoService detallePedidoService;
 	
+	
+	
 
 	// para almacenar los detalles de la orden
 	List<DetallePedido> detalles = new ArrayList<DetallePedido>();
@@ -68,6 +73,8 @@ public class HomeController {
 		
 		//session
 		model.addAttribute("sesion",session.getAttribute("idUsuario"));
+		
+		
 
 		return "usuario/home";
 	}
@@ -202,6 +209,8 @@ public class HomeController {
 		model.addAttribute("productos", productos);
 		return "usuario/home";
 	}
+	
+	
 	
 
 }
